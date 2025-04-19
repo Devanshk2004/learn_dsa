@@ -1,30 +1,20 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Inter } from 'next/font/google';
+import './globals.css';
 import Link from "next/link";
 import { AuthProvider } from "./contexts/AuthContext";
 import UserNav from "./components/UserNav";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "Strike DSA - Data Structures & Algorithms",
-  description: "Learn Data Structures and Algorithms with Strike DSA",
+  title: 'Learn DSA',
+  description: 'Master Data Structures and Algorithms',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={inter.className}>
         <AuthProvider>
           <header className="sticky top-0 z-50 bg-black text-white shadow-md">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
