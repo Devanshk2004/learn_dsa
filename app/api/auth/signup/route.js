@@ -10,35 +10,32 @@ export async function POST(request) {
     
     // Parse JSON body
     const body = await request.json();
-    const { email, password } = body;
+    const { username, email, password } = body;
     
     // Validate input
-    if (!email || !password) {
+    if (!username || !email || !password) {
       return NextResponse.json(
-        { success: false, message: 'Please provide email and password' },
+        { success: false, message: 'Please provide all required fields' },
         { status: 400 }
       );
     }
     
-    // Find user and include password for verification
-    const user = await User.findOne({ email }).select('+password');
+    // Check if user already exists
+    const userExists = await User.findOne({ email });
     
-    if (!user) {
+    if (userExists) {
       return NextResponse.json(
-        { success: false, message: 'Invalid credentials' },
-        { status: 401 }
+        { success: false, message: 'User already exists' },
+        { status: 400 }
       );
     }
     
-    // Check if password matches
-    const isMatch = await user.matchPassword(password);
-    
-    if (!isMatch) {
-      return NextResponse.json(
-        { success: false, message: 'Invalid credentials' },
-        { status: 401 }
-      );
-    }
+    // Create new user
+    const user = await User.create({
+      username,
+      email,
+      password,
+    });
     
     // Generate token
     const token = generateToken(user._id);
@@ -54,12 +51,12 @@ export async function POST(request) {
           username: user.username,
           email: user.email,
         },
-        message: 'Login successful',
+        message: 'Signup successful',
       },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (error) {
-    console.error('Login error:', error);
+    console.error('Signup error:', error);
     return NextResponse.json(
       { success: false, message: 'Server error' },
       { status: 500 }

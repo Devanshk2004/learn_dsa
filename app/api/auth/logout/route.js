@@ -3,17 +3,12 @@ import { clearTokenCookie } from '@/lib/auth';
 
 export async function POST() {
   try {
-    // Clear token cookie
-    clearTokenCookie();
-    
-    return NextResponse.json(
-      { message: 'Logged out successfully' },
-      { status: 200 }
-    );
+    await clearTokenCookie();
+    return NextResponse.json({ success: true, message: 'Logged out successfully' });
   } catch (error) {
     console.error('Logout error:', error);
     return NextResponse.json(
-      { message: 'Server error' },
+      { success: false, message: 'Server error' },
       { status: 500 }
     );
   }
