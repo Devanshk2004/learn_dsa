@@ -7,19 +7,19 @@ export default function Home() {
       id: 'arrays',
       title: 'Arrays',
       description: 'Master the fundamentals of arrays and array operations.',
-      image: '/images/arrays.jpg',
+      image: '/images/Arrays.jpg',
     },
     {
       id: 'strings',
       title: 'Strings',
       description: 'Learn string manipulation algorithms and techniques.',
-      image: '/images/strings.png',
+      image: '/images/Strings.png',
     },
     {
       id: 'sorting',
       title: 'Sorting',
       description: 'Explore various sorting algorithms and their implementations.',
-      image: '/images/sorting.jpg',
+      image: '/images/Sorting.jpg',
     },
     {
       id: 'searching',
